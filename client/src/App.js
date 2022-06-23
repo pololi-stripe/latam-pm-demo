@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Button from '@mui/material/Button';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -16,6 +17,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{!data ? "Loading..." : data}</p>
+        <Button variant="contained">Hello World</Button>
       </header>
     </div>
   );
