@@ -1,25 +1,58 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Button from '@mui/material/Button';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import Typography from "@mui/material/Typography";
+
+import MexicoPaymentMethods from "./MexicoPaymentMethods";
+import BrazilPaymentMethods from "./BrazilPaymentMethods";
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [value, setValue] = React.useState("MX");
 
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-        <Button variant="contained">Hello World</Button>
-      </header>
-    </div>
+    <Container>
+      <Box sx={{ width: "100%", bgcolor: 'background.paper', mt: 5 }}>
+        <Typography variant="h3" component="div" gutterBottom>
+          Stripe Demo for LATAM Payment Methods
+        </Typography>
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab
+                label={
+                  <Typography variant="h4" component="div" gutterBottom>
+                    🇲🇽 Mexico
+                  </Typography>
+                }
+                value="MX"
+              />
+              <Tab
+                label={
+                  <Typography variant="h4" component="div" gutterBottom>
+                    🇧🇷 Brazil
+                  </Typography>
+                }
+                value="BR"
+              />
+            </TabList>
+          </Box>
+          <TabPanel value="MX">
+            <MexicoPaymentMethods />
+          </TabPanel>
+          <TabPanel value="BR">
+            <BrazilPaymentMethods />
+          </TabPanel>
+        </TabContext>
+      </Box>
+    </Container>
   );
 }
 
