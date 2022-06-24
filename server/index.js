@@ -25,6 +25,10 @@ app.get("/cancel", (req, res) => {
 const mexico = require("./mexico.js");
 app.use("/mx", mexico);
 
+// Brazil Payment Methods
+const brazil = require("./brazil.js");
+app.use("/br", brazil);
+
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
