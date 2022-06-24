@@ -8,8 +8,20 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
-
 export default function MexicoPaymentMethods() {
+  const onClickCheckout = (endpoint) => {
+    fetch(endpoint, { method: "POST" })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.url) {
+          window.location.href = data.url;
+        }
+      })
+      .catch(function (err) {
+        console.info(err);
+      });
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -25,23 +37,9 @@ export default function MexicoPaymentMethods() {
               Checkout
             </TableCell>
             <TableCell align="right">
-              <Button>Launch</Button>
-            </TableCell>
-          </TableRow>
-          <TableRow key="Payment Element">
-            <TableCell component="th" scope="row">
-              Payment Element
-            </TableCell>
-            <TableCell align="right">
-              <Button>Launch</Button>
-            </TableCell>
-          </TableRow>
-          <TableRow key="Hosted Invoice">
-            <TableCell component="th" scope="row">
-              Hosted Invoice
-            </TableCell>
-            <TableCell align="right">
-              <Button>Launch</Button>
+              <Button onClick={() => onClickCheckout("/mx/create-mx-checkout")}>
+                Launch
+              </Button>
             </TableCell>
           </TableRow>
           <TableRow key="OXXO Hosted Voucher">
@@ -49,7 +47,13 @@ export default function MexicoPaymentMethods() {
               OXXO Hosted Voucher
             </TableCell>
             <TableCell align="right">
-              <Button>Launch</Button>
+              <Button
+                onClick={() =>
+                  onClickCheckout("/mx/create-oxxo-hosted-voucher")
+                }
+              >
+                Launch
+              </Button>
             </TableCell>
           </TableRow>
           <TableRow key="SPEI Hosted Instruction">
@@ -57,7 +61,29 @@ export default function MexicoPaymentMethods() {
               SPEI Hosted Instruction
             </TableCell>
             <TableCell align="right">
-              <Button>Launch</Button>
+              <Button
+                onClick={() =>
+                  onClickCheckout("/mx/create-spei-hosted-instructions")
+                }
+              >
+                Launch
+              </Button>
+            </TableCell>
+          </TableRow>
+          <TableRow key="Payment Element">
+            <TableCell component="th" scope="row">
+              Payment Element
+            </TableCell>
+            <TableCell align="right">
+              <Button>Work In Progress</Button>
+            </TableCell>
+          </TableRow>
+          <TableRow key="Hosted Invoice">
+            <TableCell component="th" scope="row">
+              Hosted Invoice
+            </TableCell>
+            <TableCell align="right">
+              <Button>Work In Progress</Button>
             </TableCell>
           </TableRow>
         </TableBody>
